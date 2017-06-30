@@ -10,7 +10,11 @@ import UIKit
 
 struct movie {
     
-    var title: String = ""
+    var title: String
+    
+    init(title: String){
+        self.title = title
+    }
 }
 
 class myListTableViewTableViewController: UITableViewController {
@@ -25,34 +29,42 @@ class myListTableViewTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        load_movies()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func load_movies(){
+        
+        movies.append(movie(title: "Fight Club"))
+        movies.append(movie(title:"Titanic"))
+        movies.append(movie(title:"Forest Gump"))
+        
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 5
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return movies.count
     }
 
-    /*
+   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
+        
+        cell.textLabel?.text = movies[indexPath.row].title
 
         // Configure the cell...
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -60,7 +72,8 @@ class myListTableViewTableViewController: UITableViewController {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+ */
+ 
 
     /*
     // Override to support editing the table view.
@@ -89,15 +102,21 @@ class myListTableViewTableViewController: UITableViewController {
     }
     */
 
-    /*
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detailSegue", sender: movies[indexPath.row])
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let guest = segue.destination as! ViewController
+        
+        guest.singleMovie = (sender as? movie)!
     }
-    */
+ 
     
     @IBAction func addButtonPressed(_ sender: Any) { 
 

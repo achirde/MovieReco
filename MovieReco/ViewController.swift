@@ -10,9 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var movieTitle: String?
+    var singleMovie = movie(title: "")
+    
+    @IBOutlet weak var TitleLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        TitleLabel.text = singleMovie.title   //movieTitle
     }
 
     override func didReceiveMemoryWarning() {
